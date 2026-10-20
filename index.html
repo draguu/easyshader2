@@ -90,7 +90,7 @@ footer a{color:var(--accent-dk)}
 <main class="wrap">
   <section class="panel">
     <div class="heads one"><h2>1500+ materials, ready to apply</h2></div>
-    <div class="vids one"><video data-v="video01" muted loop playsinline controls preload="none"></video></div>
+    <div class="vids one"><video data-src="assets/videos/material_ball_cycle_render.mp4" muted loop playsinline controls preload="none"></video></div>
   </section>
 
   <div class="facts">
@@ -101,7 +101,7 @@ footer a{color:var(--accent-dk)}
   </div>
 
   <section class="panel split">
-    <video data-v="video05" muted loop playsinline preload="none"></video>
+    <video data-v="video01" muted loop playsinline preload="none"></video>
     <div class="txt"><h3>Global slider</h3><p>A single slider to control grunge, edge wear, leaks and cracks.</p></div>
   </section>
 
@@ -147,12 +147,12 @@ var io = new IntersectionObserver(function(es){
   es.forEach(function(e){
     var v = e.target;
     if(e.isIntersecting){
-      if(!v.src){ v.src = VIDEO_BASE + v.dataset.v + ".mp4"; }
+      if(!v.src){ v.src = v.dataset.src || (VIDEO_BASE + v.dataset.v + ".mp4"); }
       v.play().catch(function(){});
     } else { v.pause(); }
   });
 },{threshold:.25});
-document.querySelectorAll("video[data-v]").forEach(function(v){ io.observe(v); });
+document.querySelectorAll("video[data-v],video[data-src]").forEach(function(v){ io.observe(v); });
 </script>
 </body>
 </html>
