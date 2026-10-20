@@ -83,17 +83,37 @@ footer a{color:var(--accent-dk)}
   section{padding:48px 0}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* compact hero: logo left, text right, all inside one short band */
+.hero{padding:12px 0 24px;text-align:left}
+.hero-top{display:flex;align-items:center;justify-content:center;gap:40px;min-height:280px}
+.hero .hero-img{flex:none;width:150px;max-width:150px;margin:0}
+.hero-text{max-width:600px}
+.hero h1{font-size:clamp(26px,3.6vw,42px);max-width:none;margin:0 0 10px}
+.hero p{max-width:52ch;margin:0 0 18px;font-size:1rem}
+.hero .cta{justify-content:flex-start}
+@media(max-width:760px){
+  .hero{text-align:center}
+  .hero-top{flex-direction:column;gap:14px;min-height:0}
+  .hero .hero-img{width:90px}
+  .hero p{margin-inline:auto}
+  .hero .cta{justify-content:center}
+}
 </style>
 </head>
 <body>
 
 <header class="hero wrap">
+  <div class="hero-top">
   <img class="hero-img" src="https://easyshaders.carrd.co/assets/images/image01.png" alt="Easy Shaders logo">
+  <div class="hero-text">
   <h1>Weathered, used, real. In one slider.</h1>
   <p>Easy Shaders is a smart shader pack for Blender. Control grunge, edge wear, leaks and cracks together, or dig into every effect on its own.</p>
   <div class="cta">
     <a class="btn main" href="#get">Get Easy Shaders</a>
     <a class="btn ghost" href="#features">See the effects</a>
+  </div>
+  </div>
   </div>
   <div class="reel"><video data-v="video01" muted loop playsinline preload="none"></video></div>
 </header>
