@@ -6,190 +6,143 @@
 <title>Easy Shaders: smart shaders for Blender</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#ffffff;--panel:#f2f6f3;--line:#dce4de;--text:#16201a;--mute:#566159;--accent:#00a651;--accent-dk:#008a44;--accent-ink:#ffffff}
+:root{--navy:#2a2d3c;--navy-dk:#1f2230;--line:#dce4de;--text:#16201a;--mute:#566159;--accent:#00a651;--accent-dk:#008a44}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font:400 16px/1.6 Figtree,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;line-height:1.08;letter-spacing:-.02em}
+body{background:#fff;color:var(--text);font:400 16px/1.6 Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-.btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:600;font-size:.95rem;text-decoration:none;border:2px solid var(--accent-dk);transition:transform .15s}
-.btn:hover{transform:translateY(-2px)}
-.btn.main{background:var(--accent-dk);color:#fff}
-.btn.ghost{color:var(--accent-dk)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+video{display:block;width:100%;background:#000}
 
-/* hero */
-.hero{padding:36px 0 28px;text-align:center}
-.hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;max-width:20ch;margin:0 auto 14px}
-.hero p{color:var(--mute);max-width:52ch;margin:0 auto 22px;font-size:1.02rem}
-.cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.reel{margin-top:28px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000}
-.reel video,.reel img{display:block;width:100%;height:auto}
-.hero-img{max-width:96px;margin:0 auto 14px;display:block;width:100%}
+/* banner */
+.banner{position:relative;margin-top:16px;min-height:150px;border-radius:28px;overflow:hidden;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 40px;
+  background:radial-gradient(600px 220px at 12% 50%,rgba(0,166,81,.35),transparent 70%),linear-gradient(120deg,#2a2d3c,#1f2230)}
+.brandmark{display:flex;align-items:center;gap:14px;font-weight:800;letter-spacing:.12em;font-size:clamp(13px,2vw,18px)}
+.logo{width:72px;height:72px;overflow:hidden;flex:none}
+.logo img{width:100%;height:100%;object-fit:cover;transform:scale(3.2);display:block}
+.banner h1{font-weight:400;text-transform:uppercase;letter-spacing:.1em;font-size:clamp(28px,5vw,52px);line-height:1}
+
+/* panels */
+main{padding:28px 0 8px}
+.panel{background:var(--navy);color:#fff;border-radius:28px;overflow:hidden;margin-bottom:28px}
+.panel h2,.panel h3{font-weight:500;line-height:1.1;letter-spacing:-.01em}
+.panel p{color:#d4d8e4}
+.heads{display:grid;grid-template-columns:1fr 1fr;background:var(--navy-dk)}
+.heads.one{grid-template-columns:1fr}
+.heads h2,.heads h3{text-align:center;padding:16px 8px;font-size:clamp(22px,3.6vw,38px)}
+.vids{display:grid;grid-template-columns:1fr 1fr}
+.vids.one{grid-template-columns:1fr}
+.vids video{aspect-ratio:1/1;object-fit:cover}
+.vids.one video{aspect-ratio:auto;object-fit:contain}
+.split{display:grid;grid-template-columns:1.1fr 1fr;align-items:stretch}
+.split video{height:100%;min-height:260px;object-fit:cover}
+.split .txt{display:flex;flex-direction:column;justify-content:center;text-align:center;padding:32px}
+.split h3{font-size:clamp(26px,4vw,42px);margin-bottom:12px}
+.split p{font-size:1.08rem;max-width:30ch;margin:0 auto}
 
 /* facts */
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border-block:1px solid var(--line);margin:24px 0 8px}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--line);margin-bottom:28px}
 .facts div{padding:16px 14px;border-inline-start:1px solid var(--line)}
 .facts div:first-child{border-inline-start:0}
-.facts b{display:block;font:800 1.25rem "Bricolage Grotesque",sans-serif}
-.facts span{color:var(--mute);font-size:.95rem}
+.facts b{display:block;font-size:1.25rem;font-weight:800}
+.facts span{color:var(--mute);font-size:.92rem}
 
-/* sections */
-section{padding:48px 0}
-h2{font-size:clamp(24px,4vw,36px);font-weight:700;margin-bottom:10px}
-.lead{color:var(--mute);max-width:56ch;margin-bottom:24px}
-.feat{display:grid;grid-template-columns:1fr 1.25fr;gap:32px;align-items:center;padding:26px 0;border-top:1px solid var(--line)}
-.feat:nth-of-type(even) .txt{order:2}
-.feat h3{font-size:clamp(21px,3vw,28px);margin-bottom:8px}
-.feat p{color:var(--mute);max-width:36ch}
-.vid{border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--line)}
-.vid video{display:block;width:100%;height:auto}
-.feat.big{grid-template-columns:1fr}
-.feat.big .txt{max-width:640px}
-
-/* bake */
-.bake{background:var(--panel);border-radius:16px;padding:28px;border:1px solid var(--line)}
-.bake .feat{border:0;padding:0}
-
-.showcase{border-radius:14px}
-
-/* faq */
-details{border-top:1px solid var(--line);padding:20px 0}
+/* faq + get */
+h2.sec{font-size:clamp(24px,4vw,36px);font-weight:700;margin:40px 0 18px;letter-spacing:-.01em}
+details{border-top:1px solid var(--line);padding:18px 0}
 details:last-of-type{border-bottom:1px solid var(--line)}
-summary{cursor:pointer;font:600 1.15rem "Bricolage Grotesque",sans-serif;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary{cursor:pointer;font-weight:600;font-size:1.1rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"+";color:var(--accent);font-size:1.6rem;line-height:1;transition:transform .2s}
+summary::after{content:"+";color:var(--accent-dk);font-size:1.6rem;line-height:1;transition:transform .2s}
 details[open] summary::after{transform:rotate(45deg)}
-details p{color:var(--mute);margin-top:12px;max-width:60ch}
-
-/* get */
-.get{text-align:center;background:var(--accent-dk);color:#fff;border-radius:18px;padding:40px 20px;margin-bottom:56px}
-.get h2{margin-bottom:10px}
-.get p{margin-bottom:28px;opacity:.92}
-.get .btn{background:#fff;color:var(--accent-dk);border-color:#fff;margin:6px}
-.get .btn.alt{background:transparent;color:#fff}
-footer{text-align:center;color:var(--mute);padding-bottom:48px;font-size:.95rem}
+details p{color:var(--mute);margin-top:10px;max-width:60ch}
+details a{color:var(--accent-dk)}
+.get{text-align:center;background:var(--accent-dk);color:#fff;border-radius:28px;padding:44px 20px;margin:40px 0 28px}
+.get h2{font-size:clamp(24px,4vw,38px);font-weight:700;margin-bottom:8px}
+.get p{margin-bottom:24px;opacity:.92}
+.btn{display:inline-block;margin:6px;padding:12px 24px;border-radius:10px;font-weight:600;text-decoration:none;background:#fff;color:var(--accent-dk);border:2px solid #fff}
+.btn.alt{background:transparent;color:#fff}
+footer{text-align:center;color:var(--mute);padding-bottom:40px;font-size:.92rem}
 footer a{color:var(--accent-dk)}
 
 @media(max-width:760px){
-  .feat,.feat:nth-of-type(even){grid-template-columns:1fr;gap:20px}
-  .feat:nth-of-type(even) .txt{order:0}
-  .facts div{border-inline-start:0;border-top:1px solid var(--line)}
-  .facts div:first-child{border-top:0}
-  .bake{padding:28px 20px}
-  section{padding:48px 0}
+  .banner{padding:0 22px;min-height:120px}
+  .logo{width:56px;height:56px}
+  .split{grid-template-columns:1fr}
+  .split .txt{padding:24px 16px}
+  .facts{grid-template-columns:1fr 1fr}
+  .facts div:nth-child(3){border-inline-start:0}
+  .facts div:nth-child(n+3){border-top:1px solid var(--line)}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-
-/* compact hero: logo left, text right, all inside one short band */
-.hero{padding:12px 0 24px;text-align:left}
-.hero-top{display:flex;align-items:center;justify-content:center;gap:40px;min-height:280px}
-.hero .hero-img{flex:none;width:150px;max-width:150px;margin:0}
-.hero-text{max-width:600px}
-.hero h1{font-size:clamp(26px,3.6vw,42px);max-width:none;margin:0 0 10px}
-.hero p{max-width:52ch;margin:0 0 18px;font-size:1rem}
-.hero .cta{justify-content:flex-start}
-@media(max-width:760px){
-  .hero{text-align:center}
-  .hero-top{flex-direction:column;gap:14px;min-height:0}
-  .hero .hero-img{width:90px}
-  .hero p{margin-inline:auto}
-  .hero .cta{justify-content:center}
-}
-
-/* brand band + video */
-.hero{padding:16px 0 24px;text-align:left}
-.brand{display:flex;align-items:center;gap:18px;padding:8px 0 18px}
-.brand .hero-img{width:72px;max-width:72px;margin:0}
-.brand h1{font-size:clamp(30px,5vw,52px);font-weight:800;margin:0}
-.reel-label{font:700 1.15rem "Bricolage Grotesque",sans-serif;margin:0 0 12px;color:var(--accent-dk)}
-.hero .reel{margin-top:0}
+@media(max-width:480px){.vids:not(.one),.heads:not(.one){grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
-<header class="hero wrap">
-  <div class="brand">
-    <img class="hero-img" src="https://easyshaders.carrd.co/assets/images/image01.png" alt="Easy Shaders logo">
-    <h1>Easy Shaders</h1>
+<header class="wrap">
+  <div class="banner">
+    <div class="brandmark"><span class="logo"><img src="https://easyshaders.carrd.co/assets/images/image01.png" alt="Easy Shaders logo"></span>EASY SHADERS</div>
+    <h1>Features</h1>
   </div>
-  <p class="reel-label">1500+ materials, ready to apply</p>
-  <div class="reel"><video data-v="video01" muted loop playsinline controls preload="none"></video></div>
 </header>
 
-<div class="wrap">
+<main class="wrap">
+  <section class="panel">
+    <div class="heads one"><h2>1500+ materials, ready to apply</h2></div>
+    <div class="vids one"><video data-v="video01" muted loop playsinline controls preload="none"></video></div>
+  </section>
+
   <div class="facts">
     <div><b>1500+</b><span>ready-made shaders</span></div>
     <div><b>1 slider</b><span>drives the whole look</span></div>
     <div><b>PBR bake</b><span>hundreds of nodes, one texture set</span></div>
     <div><b>Eevee and Cycles</b><span>works in both</span></div>
   </div>
-</div>
 
-<section id="features" class="wrap">
-  <h2>Every effect, dialed in</h2>
-  <p class="lead">Start with the global slider for a fast result. Open the advanced controls when you want to tune each effect by hand.</p>
+  <section class="panel split">
+    <video data-v="video05" muted loop playsinline preload="none"></video>
+    <div class="txt"><h3>Global slider</h3><p>A single slider to control grunge, edge wear, leaks and cracks.</p></div>
+  </section>
 
-  <article class="feat big">
-    <div class="txt"><h3>Global slider</h3><p>One slider controls grunge, edge wear, leaks and cracks together.</p></div>
-    <div class="vid"><video data-v="video05" muted loop playsinline preload="none"></video></div>
-  </article>
+  <section class="panel">
+    <div class="heads"><h3>Dents</h3><h3>Grunge</h3></div>
+    <div class="vids"><video data-v="video03" muted loop playsinline preload="none"></video><video data-v="video09" muted loop playsinline preload="none"></video></div>
+  </section>
 
-  <article class="feat"><div class="txt"><h3>Dents</h3><p>Believable dents and damage on any surface.</p></div>
-    <div class="vid"><video data-v="video03" muted loop playsinline preload="none"></video></div></article>
+  <section class="panel">
+    <div class="heads"><h3>Scratches</h3><h3>Edge wear</h3></div>
+    <div class="vids"><video data-v="video02" muted loop playsinline preload="none"></video><video data-v="video06" muted loop playsinline preload="none"></video></div>
+  </section>
 
-  <article class="feat"><div class="txt"><h3>Grunge</h3><p>Dirt and grime that settles where it would in real life.</p></div>
-    <div class="vid"><video data-v="video09" muted loop playsinline preload="none"></video></div></article>
+  <section class="panel">
+    <div class="heads"><h3>Cavity</h3><h3>Leaks</h3></div>
+    <div class="vids"><video data-v="video04" muted loop playsinline preload="none"></video><video data-v="video08" muted loop playsinline preload="none"></video></div>
+  </section>
 
-  <article class="feat"><div class="txt"><h3>Scratches</h3><p>From light scuffs to deep gouges, with full control.</p></div>
-    <div class="vid"><video data-v="video02" muted loop playsinline preload="none"></video></div></article>
+  <section class="panel split">
+    <div class="txt"><h3>Bake it in three steps</h3><p>Turn hundreds of nodes into a PBR texture set, ready for game engines and lightweight scenes.</p></div>
+    <video data-v="video07" muted loop playsinline preload="none"></video>
+  </section>
 
-  <article class="feat"><div class="txt"><h3>Edge wear</h3><p>Chipped paint and bare metal along every edge.</p></div>
-    <div class="vid"><video data-v="video06" muted loop playsinline preload="none"></video></div></article>
-
-  <article class="feat"><div class="txt"><h3>Cavity</h3><p>Dirt pooled in crevices, for depth and weight.</p></div>
-    <div class="vid"><video data-v="video04" muted loop playsinline preload="none"></video></div></article>
-
-  <article class="feat"><div class="txt"><h3>Leaks</h3><p>Streaks and stains that give an asset a history.</p></div>
-    <div class="vid"><video data-v="video08" muted loop playsinline preload="none"></video></div></article>
-</section>
-
-<section class="wrap">
-  <div class="bake">
-    <article class="feat">
-      <div class="txt"><h3>Bake it in three steps</h3><p>Turn hundreds of nodes into a PBR texture set. Ready for game engines and lightweight scenes.</p></div>
-      <div class="vid"><video data-v="video07" muted loop playsinline preload="none"></video></div>
-    </article>
-  </div>
-</section>
-
-<section class="wrap">
-  <h2>Questions</h2>
-  <p class="lead">Before you start.</p>
+  <h2 class="sec">Questions</h2>
   <details><summary>Does my model need UVs?</summary><p>Yes. Your model needs to be unwrapped for everything to work properly.</p></details>
   <details><summary>Does Edge wear work in Eevee and Cycles?</summary><p>It works in both, but the results differ. Eevee uses ambient occlusion for its calculations, and Cycles uses bevel.</p></details>
   <details><summary>How do I make it work in Eevee?</summary><p>Turn on ambient occlusion in the render settings.</p></details>
-  <details><summary>How do I install it?</summary><p>Follow the <a href="https://weybec.notion.site/How-to-install-4856b37ece4d4eaf9044aef382471614?pvs=4" target="_blank" rel="noopener" style="color:var(--accent-dk)">installation guide</a>.</p></details>
-</section>
+  <details><summary>How do I install it?</summary><p>Follow the <a href="https://weybec.notion.site/How-to-install-4856b37ece4d4eaf9044aef382471614?pvs=4" target="_blank" rel="noopener">installation guide</a>.</p></details>
 
-<section id="get" class="wrap" style="padding-top:24px">
-  <div class="get">
+  <section class="get">
     <h2>Make your next render look lived in</h2>
     <p>Pick the store you prefer.</p>
     <a class="btn" href="https://superhivemarket.com/products/easy-shaders" target="_blank" rel="noopener">Buy on Superhive</a>
     <a class="btn alt" href="https://weybecstudio.gumroad.com/l/easyshaders" target="_blank" rel="noopener">Buy on Gumroad</a>
-  </div>
-  <footer>Made by <a href="https://weybec.notion.site/How-to-install-4856b37ece4d4eaf9044aef382471614?pvs=4" target="_blank" rel="noopener">Weybec Studio</a></footer>
-</section>
+  </section>
+  <footer>Made by Weybec Studio</footer>
+</main>
 
 <script>
-// Change this to "assets/videos/" after copying the mp4 files into your repo (faster and safer).
+// Change to "assets/videos/" after copying the mp4 files into your repo (faster and safer).
 var VIDEO_BASE = "https://easyshaders.carrd.co/assets/videos/";
-
-// videos load and play only when scrolled into view
 var io = new IntersectionObserver(function(es){
   es.forEach(function(e){
     var v = e.target;
@@ -200,7 +153,6 @@ var io = new IntersectionObserver(function(es){
   });
 },{threshold:.25});
 document.querySelectorAll("video[data-v]").forEach(function(v){ io.observe(v); });
-
 </script>
 </body>
 </html>
