@@ -17,9 +17,10 @@ a{color:inherit}
 video{display:block;width:100%;background:#000}
 
 /* logo header */
-.logo-panel{margin-top:16px;border-radius:28px;padding:28px 20px;display:flex;justify-content:center;
-  background:radial-gradient(600px 220px at 50% 50%,rgba(0,166,81,.28),transparent 70%),linear-gradient(120deg,#2a2d3c,#1f2230)}
-.top-logo{display:block;width:min(420px,85%);height:auto}
+.logo-panel{position:relative;height:150px;overflow:hidden;margin:16px 0 36px;border-radius:28px;
+  background:radial-gradient(600px 160px at 50% 50%,rgba(0,166,81,.28),transparent 70%),linear-gradient(120deg,#2a2d3c,#1f2230)}
+/* the logo file has lots of empty space around it, so it is centered and the extra is cropped by the panel */
+.top-logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:420px;max-width:none;height:auto}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* panels */
@@ -67,6 +68,8 @@ footer{text-align:center;color:var(--mute);padding-bottom:40px;font-size:.92rem}
 footer a{color:var(--accent-dk)}
 
 @media(max-width:760px){
+  .logo-panel{height:110px}
+  .top-logo{width:320px}
   .vids.crop video{aspect-ratio:2/1}
   .split{grid-template-columns:1fr}
   .split .txt{padding:24px 16px}
