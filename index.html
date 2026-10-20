@@ -99,23 +99,25 @@ footer a{color:var(--accent-dk)}
   .hero p{margin-inline:auto}
   .hero .cta{justify-content:center}
 }
+
+/* brand band + video */
+.hero{padding:16px 0 24px;text-align:left}
+.brand{display:flex;align-items:center;gap:18px;padding:8px 0 18px}
+.brand .hero-img{width:72px;max-width:72px;margin:0}
+.brand h1{font-size:clamp(30px,5vw,52px);font-weight:800;margin:0}
+.reel-label{font:700 1.15rem "Bricolage Grotesque",sans-serif;margin:0 0 12px;color:var(--accent-dk)}
+.hero .reel{margin-top:0}
 </style>
 </head>
 <body>
 
 <header class="hero wrap">
-  <div class="hero-top">
-  <img class="hero-img" src="https://easyshaders.carrd.co/assets/images/image01.png" alt="Easy Shaders logo">
-  <div class="hero-text">
-  <h1>Weathered, used, real. In one slider.</h1>
-  <p>Easy Shaders is a smart shader pack for Blender. Control grunge, edge wear, leaks and cracks together, or dig into every effect on its own.</p>
-  <div class="cta">
-    <a class="btn main" href="#get">Get Easy Shaders</a>
-    <a class="btn ghost" href="#features">See the effects</a>
+  <div class="brand">
+    <img class="hero-img" src="https://easyshaders.carrd.co/assets/images/image01.png" alt="Easy Shaders logo">
+    <h1>Easy Shaders</h1>
   </div>
-  </div>
-  </div>
-  <div class="reel"><video data-v="video01" muted loop playsinline preload="none"></video></div>
+  <p class="reel-label">1500+ materials, ready to apply</p>
+  <div class="reel"><video data-v="video01" muted loop playsinline controls preload="none"></video></div>
 </header>
 
 <div class="wrap">
@@ -165,12 +167,6 @@ footer a{color:var(--accent-dk)}
 </section>
 
 <section class="wrap">
-  <h2>1500+ shaders included</h2>
-  <p class="lead">Browse a look, apply it, and tweak it with the slider.</p>
-  <div class="vid showcase"><video id="showcase" muted loop playsinline controls preload="none"></video></div>
-</section>
-
-<section class="wrap">
   <h2>Questions</h2>
   <p class="lead">Before you start.</p>
   <details><summary>Does my model need UVs?</summary><p>Yes. Your model needs to be unwrapped for everything to work properly.</p></details>
@@ -192,8 +188,6 @@ footer a{color:var(--accent-dk)}
 <script>
 // Change this to "assets/videos/" after copying the mp4 files into your repo (faster and safer).
 var VIDEO_BASE = "https://easyshaders.carrd.co/assets/videos/";
-// Put your 1500+ shaders video here (copy the file into your repo, e.g. assets/videos/shaders-showcase.mp4).
-var SHOWCASE_VIDEO = "assets/videos/shaders-showcase.mp4";
 
 // videos load and play only when scrolled into view
 var io = new IntersectionObserver(function(es){
@@ -207,11 +201,6 @@ var io = new IntersectionObserver(function(es){
 },{threshold:.25});
 document.querySelectorAll("video[data-v]").forEach(function(v){ io.observe(v); });
 
-// showcase video loads when scrolled into view
-var sv = document.getElementById("showcase");
-new IntersectionObserver(function(es,o){
-  if(es[0].isIntersecting){ sv.src = SHOWCASE_VIDEO; o.disconnect(); }
-},{threshold:.25}).observe(sv);
 </script>
 </body>
 </html>
