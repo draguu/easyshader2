@@ -132,7 +132,10 @@ footer a{color:var(--accent-dk)}
   </section>
 
   <h2 class="sec">Questions</h2>
-  <details><summary>Does my model need UVs?</summary><p>Yes. Your model needs to be unwrapped for everything to work properly.</p></details>
+  <details><summary>Will it load all the shaders onto my hard drive?</summary><p>No. At first Easy Shaders only loads small preview thumbnails. A material is saved to your computer only when you press Download on it, and it goes into the folder you set in the addon preferences.</p></details>
+  <details><summary>Does it work in other game engines?</summary><p>Yes. Once your material is baked, the textures are ordinary image files, so you can use them in any game engine.</p></details>
+  <details><summary>Do I get multiple textures or a single atlas?</summary><p>You can have either. Bake Single Object bakes one material at a time, so for separate textures you bake each material one by one. Bake All in One combines every material into a single atlas and gives you one texture set.</p></details>
+  <details><summary>Does my object need a UV map?</summary><p>Yes, your object needs a UV map. If it doesn't have one, Easy Shaders creates it for you automatically with a smart unwrap. If you prefer your own layout, choose Manual UV when baking and pick the UV map you want.</p></details>
   <details><summary>Does Edge wear work in Eevee and Cycles?</summary><p>It works in both, but the results differ. Eevee uses ambient occlusion for its calculations, and Cycles uses bevel.</p></details>
   <details><summary>How do I make it work in Eevee?</summary><p>Turn on ambient occlusion in the render settings.</p></details>
   <details><summary>How do I install it?</summary><p>Follow the <a href="https://weybec.notion.site/How-to-install-4856b37ece4d4eaf9044aef382471614?pvs=4" target="_blank" rel="noopener">installation guide</a>.</p></details>
